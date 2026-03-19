@@ -210,6 +210,9 @@ void calculate_damage() {
 }
 
 
+// new comment
+// please add this comment.
+// new comment 2
 
 
 int main() {
