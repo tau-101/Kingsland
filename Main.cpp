@@ -2,10 +2,10 @@
 #include <string>
 #include <optional>
 
-// [globals] -----------------------
+// [globals] --------------------------------------------------------------------------------------------------
 bool game_running = true;
 
-// [structs] -------------------------
+// [structs] ----------------------------------------------------------------------------------------------------
 struct cell {
     std::optional<int> latitude;
     std::optional<int> longitude;
@@ -14,6 +14,8 @@ struct cell {
     std::string cell_id;
     bool is_interior;
 };
+
+    // player structs -----------------------
 
 struct player {
     int player_health;
@@ -32,10 +34,13 @@ struct skill {
     std::string skill_description;
 };
 
-struct player_skills {
+struct player_skill {
     int melee_weapons;
     int energy_weapons;
-
+	int ballistic_weapons;
+	int science;
+	int mechanics;
+	int speechcraft;
 };
 
 struct attribute {
@@ -43,7 +48,7 @@ struct attribute {
     std::string attribute_description;
 };
 
-struct player_attributes {
+struct player_attribute {
     int strength;
     int cunning;
     int fortitude;
@@ -51,18 +56,25 @@ struct player_attributes {
     int intellect;
 };
 
+struct perk {
+    std::string perk_name;
+    std::string perk_description;
+};
 
 
+    // npc structs ------------------
 struct npc {
     std::string npc_name;
     std::string npc_description;
     int npc_health;
+	int npc_armor_class;
+	int npc_damage_resist;
     std::string npc_faction;
 };
 
 
 
-// item structs ------------------
+    // item structs ------------------
 struct item_armor {
     std::string item_name;
     std::string item_description;
@@ -114,7 +126,7 @@ struct item_ammo {
 };
 
 
-// [database] --------------------------
+// [database] ----------------------------------------------------------------------------------------------------------
 
     // armors
 item_armor athanatos_suit = {
@@ -156,16 +168,35 @@ item_weapon omnirifle = {
 
 // skills
 skill melee_weapons = {
-    .skill_name = "Melee Weapons"
+    .skill_name = "Melee Weapons",
+    .skill_description = "Your skill with melee weapons, weapons that rely on physical contact with the enemy. Affects which melee weapons you can use and your proficiency with them."
 };
 
 skill energy_weapons = {
-    .skill_name = "Energy Weapons"
+    .skill_name = "Energy Weapons",
+	.skill_description = "Your skill with energy weapons, weapons utilizing directed energy of all kinds. AFfects which energy weapons you can use and your proficiency with them."
 };
 
-skill hacking = {
-    .skill_name = "Hacking"
+skill ballistic_weapons = {
+    .skill_name = "Ballistic Weapons",
+	.skill_description = "Your skill with ballistic weapons, weapons with physical projectiles as well as chemical explosives. Affects which ballistic weapons you can use and your proficiency with them."
 };
+
+skill science = {
+    .skill_name = "Science",
+	.skill_description = "Your intellectual knowledge of computer systems and theoretical technique. Affects how well you can upgrade items and hack computers."
+};
+
+skill mechanics = {
+    .skill_name = "Mechanics",
+    .skill_description = "Your knowledge of mechanical devices and physical technique. Affects how well you can repair items and pick locks."
+};
+
+skill speechcraft = {
+    .skill_name = "Speechcraft",
+    .skill_description = "Your ability to charm and persuade others. Allows for benefical dialogue options and better prices when trading."
+};
+
 
 // attributes
 attribute strength = {
@@ -185,7 +216,9 @@ attribute fortitude = {
 
 
 
-// cells
+// [cells] ------------------------------------------------------------------------
+
+// exteriors
 cell wilderness_neg8_0 = {
     .latitude = -8,
     .longitude = 0,
@@ -195,6 +228,8 @@ cell wilderness_neg8_0 = {
     .is_interior = false
 };
 
+
+// interiors
 cell cave1 = {
     .latitude = std::nullopt,
     .longitude = std::nullopt,
@@ -204,15 +239,62 @@ cell cave1 = {
     .is_interior = true
 };
 
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
+
+
+
+
+// [functions] -------------------------------------------------------------------------------------------------------
+
+// startup functions
+std::string get_startup_input() {
+	std::cerr << "FUNCTION GET_STARTUP_INPUT RAN" << std::endl;
+	std::cout << "=======================================================" << std::endl;
+	std::cout << "=                                                     =" << std::endl;
+    std::cout << "=                                                     =" << std::endl;
+    std::cout << "=                                                     =" << std::endl;
+    std::cout << "=                      Kingsland                      =" << std::endl;
+    std::cout << "=                                                     =" << std::endl;
+    std::cout << "=                                                     =" << std::endl;
+    std::cout << "=                                                     =" << std::endl;
+    std::cout << "=======================================================" << std::endl;
+
+	std::cout << "What do you want to do? Options: quit (q), play (p)" << std::endl;
+    std::string startup_input;
+    std::cin >> startup_input;
+
+    if (startup_input == "q" || startup_input == "quit") {
+        return startup_input;
+        game_running = false;
+    } else if (startup_input == "p" || startup_input == "play") {
+		return startup_input;
+    } else {
+        std::cout << "I don't know that command. Type quit (q) to quite or play (p) to play." << std::endl;
+        return get_startup_input();
+	}
+}
+
+
+void play_game() {
+    while (game_running) {
+        std::cerr << "FUNCTION PLAY_GAME RAN" << std::endl;
+        game_running = false;
+	}
+}
+
+void load_save() {
+
+}
 
 void calculate_damage() {
 
 }
 
+
+
 int main() {
-    while (game_running) {
-        std::cout << "Your random number is: " << std::endl;
-        game_running = false;
-    }
+	get_startup_input();
+	std::cout << "ALL FUNCTIONS CLEARED. MAIN EXITING." << std::endl;
     return 0;
 }

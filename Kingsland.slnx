@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Kingsland.vcxproj" />
+  <Project Path="Kingsland.vcxproj" Id="5581a584-af52-46d8-b8ef-97b49e57445e" />
 </Solution>
